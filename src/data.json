@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "role": "admin",
+        "name": "Molecule Man",
+        "age": 29,
+        "password": 1
+    },
+    {
+        "id": 2,
+        "role": "master",
+        "name": "Madame Uppercut",
+        "age": 39,
+        "password": 1
+    },
+    {
+        "id": 3,
+        "role": "employee",
+        "name": "Taghi",
+        "age": 89,
+        "password": 1
+    }
+]
