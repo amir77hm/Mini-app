@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { useHistory } from "react-router-dom";
 
 export const RegisterContext = createContext()
 
@@ -10,10 +11,24 @@ export function RegisterProvider(props) {
     const [password, setPassword] = useState('')
     const [step, setStep] = useState(1)
 
+    const history = useHistory()
+
+    const next = () => {
+        if (step < 4) {
+            handleChange('step', (step + 1))
+            history.push(`/register/step${step + 1}`)
+        }
+    }
+    const prev = () => {
+        if (step > 1) {
+            handleChange('step', step - 1)
+            history.push(`/register/step${step - 1}`)
+        }
+    }
+
     const handleChange = (type, value) => {
         switch (type) {
             case 'step':
-                console.log(value)
                 setStep(value)
                 break;
             case 'firstName':
@@ -32,18 +47,6 @@ export function RegisterProvider(props) {
                 break;
         }
     }
-    const handleStep = (operator) => {
-        switch (operator) {
-            case 'up':
-                setStep(step + 1)
-                break;
-            case 'down':
-                setStep(step - 1)
-                break;
-            default:
-                break;
-        }
-    }
 
     return (
         <RegisterContext.Provider value={{
@@ -53,7 +56,8 @@ export function RegisterProvider(props) {
             password,
             step,
             handleChange,
-            handleStep
+            next,
+            prev
         }}>
             {props.children}
         </RegisterContext.Provider>

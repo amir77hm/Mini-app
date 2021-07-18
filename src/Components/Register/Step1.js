@@ -17,16 +17,26 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    btns: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+
+        '& button': {
+            width: '100%'
+        }
+    },
 }));
 
-function Step1() {
+function Step1(props) {
     const classes = useStyles();
 
-    const { firstName, handleStep, handleChange } = useContext(RegisterContext)
+    const { firstName, handleChange, next } = useContext(RegisterContext)
 
     const handleSubmit = (e) => {
-        handleStep('up')
+        next()
     }
+
 
     return (
         <ValidatorForm
@@ -49,15 +59,16 @@ function Step1() {
                     ]}
                     className={classes.loginInput}
                 />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
-                    ثبت نام
-                </Button>
+                <div className={classes.btns}>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        بعدی
+                    </Button>
+                </div>
             </Grid>
         </ValidatorForm>
     )

@@ -4,7 +4,7 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { RegisterContext } from '../../Contexts/RegisterContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     loginInput: {
@@ -18,15 +18,27 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    btns: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+
+        '& button': {
+            width: '48%'
+        }
+    },
 }));
 
-function Step1() {
+function Step4() {
     const classes = useStyles();
 
-    const { password, step, handleChange } = useContext(RegisterContext)
+    const { password, handleChange, next, prev } = useContext(RegisterContext)
 
-    const handleSubmit = (e) => {
-        console.log(step)
+    const history = useHistory()
+    const handleSubmit = async (e) => {
+        await next()
+        history.push('/home')
+        handleChange('step', 1)
     }
 
     return (
@@ -51,18 +63,28 @@ function Step1() {
                     className={classes.loginInput}
                     type='password'
                 />
+            </Grid>
+            <div className={classes.btns}>
+                <Button
+                    // type="submit"
+                    variant="contained"
+                    color="secondary"
+                    className={classes.submit}
+                    onClick={() => prev()}
+                >
+                    قبلی
+                </Button>
                 <Button
                     type="submit"
-                    fullWidth
                     variant="contained"
                     color="primary"
                     className={classes.submit}
                 >
                     ثبت نام
                 </Button>
-            </Grid>
+            </div>
         </ValidatorForm>
     )
 }
 
-export default Step1
+export default Step4

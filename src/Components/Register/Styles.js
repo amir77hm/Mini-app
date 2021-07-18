@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(2, 0, 2),
     },
     loginInput: {
         width: '100%',
@@ -31,6 +31,19 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: theme.spacing(4)
+    },
+    btns: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+
+        '& button': {
+            width: '48%'
+        }
+    },
+    notShow: {
+        opacity: '0',
+        cursor: 'auto'
     }
 }))
 

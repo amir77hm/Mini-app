@@ -9,7 +9,12 @@ const Home = () => {
 
     const { response, error, loading } = useAxios()
 
-    let cards
+    let cards;
+    if (error) {
+        return <div className={classes.root}>
+            not found
+        </div>
+    }
     if (response) {
         cards = response.map(card => (
             <div className={classes.card} key={card.id}>
@@ -21,11 +26,15 @@ const Home = () => {
     }
     return (
         <div className={classes.root}>
-            {loading ? <CircularProgress color="secondary" size={40} /> : (
-                <div className={classes.cards}>{cards}</div>
-            )}
+            {
+                loading ? <CircularProgress color="secondary" size={40} /> : (
+                    <div className={classes.cards}>{cards}</div>
+                )
+            }
         </div>
     )
 }
 
 export default Home
+
+

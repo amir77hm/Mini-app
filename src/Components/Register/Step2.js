@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
     loginInput: {
         width: '100%',
-        height: '4.5rem'
+        height: '4.5rem',
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -18,16 +18,25 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    btns: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+
+        '& button': {
+            width: '48%'
+        }
+    },
 }));
 
-function Step1() {
+function Step2() {
     const classes = useStyles();
 
-    const { lastName, handleChange } = useContext(RegisterContext)
+    const { lastName, handleChange, next, prev } = useContext(RegisterContext)
+
 
     const handleSubmit = (e) => {
-        handleChange('step', 3)
-
+        next()
     }
 
     return (
@@ -51,18 +60,28 @@ function Step1() {
                     ]}
                     className={classes.loginInput}
                 />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
-                    ثبت نام
-                </Button>
+                <div className={classes.btns}>
+                    <Button
+                        // type="submit"
+                        variant="contained"
+                        color="secondary"
+                        className={classes.submit}
+                        onClick={() => prev()}
+                    >
+                        قبلی
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        بعدی
+                    </Button>
+                </div>
             </Grid>
         </ValidatorForm>
     )
 }
 
-export default Step1
+export default Step2

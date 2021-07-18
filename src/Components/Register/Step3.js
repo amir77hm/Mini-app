@@ -17,16 +17,25 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    btns: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+
+        '& button': {
+            width: '48%'
+        }
+    },
 }));
 
-function Step1() {
+function Step3() {
     const classes = useStyles();
 
-    const { email, handleChange } = useContext(RegisterContext)
+    const { email, handleChange, prev, next } = useContext(RegisterContext)
 
 
     const handleSubmit = (e) => {
-        handleChange('step', 4)
+        next()
     }
 
 
@@ -45,24 +54,35 @@ function Step1() {
                     label="ایمیل"
                     name="email"
                     style={{ direction: 'rtl' }}
-                    validators={['required']}
+                    validators={['required', 'isEmail']}
                     errorMessages={[
                         'ایمیل را وارد کنید',
+                        'ایمیل نادرست است'
                     ]}
                     className={classes.loginInput}
                 />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
-                    ثبت نام
-                </Button>
+                <div className={classes.btns}>
+                    <Button
+                        // type="submit"
+                        variant="contained"
+                        color="secondary"
+                        className={classes.submit}
+                        onClick={() => prev()}
+                    >
+                        قبلی
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        بعدی
+                    </Button>
+                </div>
             </Grid>
         </ValidatorForm>
     )
 }
 
-export default Step1
+export default Step3

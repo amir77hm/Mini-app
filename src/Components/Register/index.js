@@ -13,7 +13,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import Step4 from './Step4'
 import { RegisterContext } from '../../Contexts/RegisterContext';
-import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { Switch, Route, useRouteMatch, Redirect, useHistory } from 'react-router-dom';
 import useStyles from './Styles';
 
 function SignUp() {
@@ -21,10 +21,9 @@ function SignUp() {
 
     const { step, handleChange } = useContext(RegisterContext)
 
-
     const { path, url } = useRouteMatch()
-    // const history = useHistory()
-    // history.push(`${url}/step${4}`)
+
+    const history = useHistory()
 
     return (
         <Container component="main" maxWidth="xs">
@@ -37,22 +36,21 @@ function SignUp() {
                     ثبت نام
                 </Typography>
                 <Grid container spacing={2}>
-                    <Route render={() => (
-                        <Switch>
-                            <Route exact path={`${path}/step1`} render={() =>
-                                <Step1 />
-                            } />
-                            <Route exact path={`${path}/step2`} render={() =>
-                                <Step2 />
-                            } />
-                            <Route exact path={`${path}/step3`} render={() =>
-                                <Step3 />
-                            } />
-                            <Route exact path={`${path}/step4`} render={() =>
-                                <Step4 />
-                            } />
-                        </Switch>
-                    )} />
+                    <Switch>
+                        <Redirect exact from="/register" to={`${url}/step1`} />
+                        <Route exact path={`${path}/step1`} render={() =>
+                            <Step1 />
+                        } />
+                        <Route exact path={`${path}/step2`} render={() =>
+                            <Step2 />
+                        } />
+                        <Route exact path={`${path}/step3`} render={() =>
+                            <Step3 />
+                        } />
+                        <Route exact path={`${path}/step4`} render={() =>
+                            <Step4 />
+                        } />
+                    </Switch>
                 </Grid>
             </Paper>
             <div className={classes.pagination}>
@@ -62,11 +60,12 @@ function SignUp() {
                     selected={true}
                     page={step}
                     onChange={(event, val) => {
+                        history.push(`${url}/step${val}`)
                         handleChange('step', val)
                     }}
                 />
             </div>
-        </Container>
+        </Container >
     );
 }
 

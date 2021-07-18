@@ -14,8 +14,13 @@ export const useAxios = (axiosParams) => {
         setTimeout(async () => {
             // try {
             await axios.get(`${BASE_URL}/user`, { headers: { 'app-id': APP_ID } })
-                .then(({ data }) => setResponse(data.data))
-                .catch(setError(error))
+                .then(({ data }) => {
+                    console.log(data)
+                    setResponse(data.data)
+                })
+                .catch((error) => {
+                    setError(error)
+                })
                 .finally(() => setLoading(false));
             // } catch (error) {
             // setError(error)
@@ -27,7 +32,7 @@ export const useAxios = (axiosParams) => {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    })
 
     return { response, error, loading }
 }

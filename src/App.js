@@ -16,48 +16,47 @@ import { RegisterProvider } from './Contexts/RegisterContext'
 function App() {
   return (
     <UserProvider>
-      <Route render={({ location }) => (
-        <>
-          <Navbar />
-          <TransitionGroup>
-            <CSSTransition
-              key={location.key}
-              classNames='page'
-              timeout={300}
-            >
-              <Switch location={location}>
-
-                <Route exact path='/home' render={() =>
-                  <Page>
-                    <Home />
-                  </Page>}
-                />
-                <Route exact path='/login' render={() =>
-                  <LoginProvider>
-                    <Page>
-                      <Login />
-                    </Page>
-                  </LoginProvider>}
-                />
-                <Route path='/Register' render={() =>
-                  <RegisterProvider>
-                    <Page>
-                      <Register />
-                    </Page>
-                  </RegisterProvider>}
-                />
-                <ProtectedRoot path='/profile' component={() =>
-                  <Page>
-                    <Profile />
-                  </Page>
-                }
-                />
-                {/* <Route exact path='*' render={() => <Page><Redirect to='/home' /></Page>} /> */}
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        </>
-      )} />
+      <RegisterProvider>
+        <LoginProvider>
+          <Route render={({ location }) => (
+            <>
+              <Navbar />
+              <TransitionGroup>
+                <CSSTransition
+                  key={location.key}
+                  classNames='page'
+                  timeout={300}
+                >
+                  <Switch location={location}>
+                    <Route exact path='/home' render={() =>
+                      <Page>
+                        <Home />
+                      </Page>}
+                    />
+                    <Route exact path='/login' render={() =>
+                      <Page>
+                        <Login />
+                      </Page>}
+                    />
+                    <Route path='/Register' render={() =>
+                      <Page>
+                        <Register />
+                      </Page>}
+                    />
+                    <ProtectedRoot path='/profile' component={() =>
+                      <Page>
+                        <Profile />
+                      </Page>
+                    }
+                    />
+                    {/* <Route path='*' render={() => <Page><Redirect to='/home' /></Page>} /> */}
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+            </>
+          )} />
+        </LoginProvider>
+      </RegisterProvider>
     </UserProvider>
   );
 }
